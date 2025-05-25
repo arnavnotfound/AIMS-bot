@@ -22,7 +22,7 @@ class EntitlementRecommender:
         self.embeddings = None
         self.model = SentenceTransformer(model_name)
         
-        # Load data and embeddings
+
         self.load_data()
         self.load_or_create_embeddings()
     
@@ -35,7 +35,6 @@ class EntitlementRecommender:
             if not all(col in self.df.columns for col in required_columns):
                 raise ValueError(f"CSV must contain columns: {required_columns}")
             
-            # Clean data
             self.df = self.df.dropna(subset=required_columns)
             self.df['combined_text'] = (
                 self.df['Entitlements'] + ' ' + 
@@ -56,7 +55,7 @@ class EntitlementRecommender:
                 with open(self.embeddings_cache, 'rb') as f:
                     cache_data = pickle.load(f)
                     
-                # Verify cache is still valid
+
                 if (len(cache_data['embeddings']) == len(self.df) and 
                     cache_data['csv_modified'] == os.path.getmtime(self.csv_path)):
                     self.embeddings = cache_data['embeddings']
@@ -65,11 +64,11 @@ class EntitlementRecommender:
             except Exception as e:
                 print(f"Error loading cached embeddings: {e}")
         
-        # Create new embeddings
+
         print("Creating embeddings... This may take a moment.")
         self.embeddings = self.model.encode(self.df['combined_text'].tolist())
         
-        # Cache embeddings
+
         try:
             cache_data = {
                 'embeddings': self.embeddings,
@@ -93,13 +92,9 @@ class EntitlementRecommender:
         Returns:
             List of dictionaries with entitlement info and scores
         """
-        # Encode the query
         query_embedding = self.model.encode([query])
-        
-        # Calculate similarities
         similarities = cosine_similarity(query_embedding, self.embeddings)[0]
-        
-        # Get top results above threshold
+    
         top_indices = np.argsort(similarities)[::-1][:top_k]
         results = []
         

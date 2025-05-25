@@ -30,11 +30,9 @@ def main():
         return
     
     try:
-        # Initialize recommender
         print("Initializing Entitlement Recommendation System...")
         recommender = EntitlementRecommender(args.csv)
         
-        # Initialize Llama integration
         llama = LlamaIntegration()
         if llama.available:
             print("✓ Llama3 integration available")
@@ -57,8 +55,7 @@ def main():
                 
                 if not query:
                     continue
-                
-                # Search for entitlements
+            
                 print("\n🔍 Searching for relevant entitlements...")
                 results = recommender.search_entitlements(
                     query, 
@@ -66,7 +63,6 @@ def main():
                     similarity_threshold=args.threshold
                 )
                 
-                # Display results
                 print(recommender.format_results(results, args.max_results))
                 
                 # Get Llama enhancement if available
