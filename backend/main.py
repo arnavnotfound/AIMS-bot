@@ -11,10 +11,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pickle
 import os
 import argparse
-import json
-from datetime import datetime
 import requests
-import time
 
 class EntitlementRecommender:
     def __init__(self, csv_path, model_name='all-MiniLM-L6-v2', embeddings_cache='embeddings.pkl'):
@@ -290,28 +287,14 @@ def main():
         print("="*60)
         print("Describe your department, role, project, or specific needs.")
         print("Type 'quit' or 'exit' to end the session.")
-        print("Type 'help' for usage examples.")
-        print("="*60)
         
         while True:
             try:
-                query = input("\n🤖 What entitlements do you need help with? ").strip()
+                query = input("\n🤖 What entitlements do you need help with? \n").strip()
                 
                 if query.lower() in ['quit', 'exit', 'q']:
                     print("Goodbye!")
                     break
-                
-                if query.lower() == 'help':
-                    print("""
-Example queries:
-- "I'm a data analyst who needs to create reports from production data"
-- "DevOps engineer setting up CI/CD pipeline for microservices"
-- "Frontend developer working on React app deployment"
-- "Database administrator managing user permissions"
-- "Security team member auditing system access"
-- "Project manager tracking development progress"
-                    """)
-                    continue
                 
                 if not query:
                     continue
