@@ -12,6 +12,7 @@ import pickle
 import os
 import argparse
 import requests
+# from entitlement_recommender import EntitlementRecommender,LlamaIntegration
 
 class EntitlementRecommender:
     def __init__(self, csv_path, model_name='all-MiniLM-L6-v2', embeddings_cache='embeddings.pkl'):
@@ -156,8 +157,6 @@ class EntitlementRecommender:
         return output
 
 class LlamaIntegration:
-    """Integration with local Llama model for enhanced responses"""
-    
     def __init__(self, base_url="http://localhost:11434"):
         self.base_url = base_url
         self.available = self._check_ollama_availability()
@@ -248,6 +247,7 @@ def create_sample_csv():
     df.to_csv('entitlements_test.csv', index=False)
     print("Created sample_entitlements.csv with sample data")
 
+
 def main():
     parser = argparse.ArgumentParser(description='Entitlement Recommendation System')
     parser.add_argument('--csv', default='/Users/arnavchouhan/Documents/aimsbot/AIMS-bot/backend/entitlements.csv', 
@@ -261,9 +261,9 @@ def main():
     
     args = parser.parse_args()
     
-    if args.create_sample:
-        create_sample_csv()
-        return
+    # if args.create_sample:
+    #     create_sample_csv()
+    #     return
     
     if not os.path.exists(args.csv):
         print(f"CSV file not found: {args.csv}")
