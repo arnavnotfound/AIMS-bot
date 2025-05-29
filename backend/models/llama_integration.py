@@ -5,7 +5,6 @@ class LlamaIntegration:
         self.available = self._check_ollama_availability()
     
     def _check_ollama_availability(self):
-        """Check if Ollama is running locally"""
         try:
             response = requests.get(f"{self.base_url}/api/tags", timeout=5)
             return response.status_code == 200
