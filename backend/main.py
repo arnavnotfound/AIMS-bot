@@ -1,23 +1,14 @@
-#!/usr/bin/env python3
-"""
-Entitlement Recommendation System
-A CLI-based chatbot that recommends entitlements based on user queries about their department, work, and projects.
-"""
 import os
 import argparse
-from entitlement_recommender import EntitlementRecommender,LlamaIntegration
+from models.entitlement_recommender import EntitlementRecommender
+from models.llama_integration import LlamaIntegration
 
 def main():
     parser = argparse.ArgumentParser(description='Entitlement Recommendation System')
-    parser.add_argument('--csv', default='/Users/arnavchouhan/Documents/aimsbot/AIMS-bot/backend/entitlements.csv', 
-                       help='Path to CSV file with entitlements')
-    parser.add_argument('--create-sample', action='store_true',
-                       help='Create a sample CSV file for testing')
-    parser.add_argument('--max-results', type=int, default=10,
-                       help='Maximum number of results to show')
-    parser.add_argument('--threshold', type=float, default=0.3,
-                       help='Similarity threshold (0.0-1.0)')
-    
+    parser.add_argument('--csv', default='/Users/arnavchouhan/Documents/aimsbot/AIMS-bot/backend/entitlements.csv', help='Path to CSV file with entitlements')
+    parser.add_argument('--create-sample', action='store_true',help='Create a sample CSV file for testing')
+    parser.add_argument('--max-results', type=int, default=10,help='Maximum number of results to show')
+    parser.add_argument('--threshold', type=float, default=0.3,help='Similarity threshold (0.0-1.0)')
     args = parser.parse_args()
     
     if not os.path.exists(args.csv):
@@ -61,7 +52,6 @@ def main():
                 
                 print(recommender.format_results(results, args.max_results))
                 
-                # Get Llama enhancement if available
                 # if results and llama.available:
                 #     print("\n💡 AI Insight:")
                 #     enhancement = llama.enhance_recommendations(query, results)

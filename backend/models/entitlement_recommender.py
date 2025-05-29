@@ -43,10 +43,8 @@ class EntitlementRecommender:
             if not all(col in self.df.columns for col in required_columns):
                 raise ValueError(f"CSV must contain columns: {required_columns}")
 
-            # Clean data
             self.df = self.df.dropna(subset=required_columns)
 
-            # Fill missing dependencies with empty strings
             if 'Dependency' in self.df.columns:
                 self.df['Dependency'] = self.df['Dependency'].fillna('')
 
