@@ -20,10 +20,6 @@ def main():
     
     args = parser.parse_args()
     
-    # if args.create_sample:
-    #     create_sample_csv()
-    #     return
-    
     if not os.path.exists(args.csv):
         print(f"CSV file not found: {args.csv}")
         print("Use --create-sample to create a sample CSV file")
@@ -66,12 +62,12 @@ def main():
                 print(recommender.format_results(results, args.max_results))
                 
                 # Get Llama enhancement if available
-                if results and llama.available:
-                    print("\n💡 AI Insight:")
-                    enhancement = llama.enhance_recommendations(query, results)
-                    if enhancement:
-                        print(enhancement)
-                    print()
+                # if results and llama.available:
+                #     print("\n💡 AI Insight:")
+                #     enhancement = llama.enhance_recommendations(query, results)
+                #     if enhancement:
+                #         print(enhancement)
+                #     print()
                 
             except KeyboardInterrupt:
                 print("\nGoodbye!")
