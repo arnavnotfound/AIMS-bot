@@ -18,7 +18,6 @@ class EntitlementRecommender:
         self.load_or_create_embeddings()
     
     def load_data(self):
-        """Load entitlements data from CSV"""
         try:
             self.df = pd.read_csv(self.csv_path)
             # required_columns = ['Entitlements', 'Description', 'Tags']
@@ -60,7 +59,6 @@ class EntitlementRecommender:
             raise
     
     def load_or_create_embeddings(self):
-        """Load cached embeddings or create new ones"""
         if os.path.exists(self.embeddings_cache):
             try:
                 with open(self.embeddings_cache, 'rb') as f:
